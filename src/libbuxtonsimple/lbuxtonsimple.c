@@ -49,7 +49,7 @@ void buxtond_set_group(char *group, char *layer)
 		_client_disconnect();
 		return;
 	} else {
-		printf("Switched to group: %s, layer: %s.\n", buxton_key_get_group(g),
+		buxton_debug("Switched to group: %s, layer: %s.\n", buxton_key_get_group(g),
  	buxton_key_get_layer(g));
 	}
 	buxton_key_free(g);
