@@ -21,15 +21,8 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#include "backend.h"
-#include "buxton.h"
-#include "buxtonresponse.h"
-#include "check_utils.h"
-#include "configurator.h"
-#include "direct.h"
-#include "protocol.h"
-#include "serialize.h"
-#include "util.h"
+#include "buxtonsimple.h"
+#include "buxtonsimple-internal.h"
 
 #ifdef NDEBUG
 #error "re-run configure with --enable-debug"
@@ -140,11 +133,75 @@ START_TEST (buxtond_get_bool_check)
 }
 END_TEST
 
-START_TEST (buxtond_remove_group)
+START_TEST (buxtond_remove_group_check)
 {
 
 }
 END_TEST
 
 /* Start buxtonsimple-internal tests */
+START_TEST (save_errno_check)
+{
 
+}
+END_TEST
+
+START_TEST (sbuxton_open_check)
+{
+
+}
+END_TEST
+
+START_TEST (sbuxton_close_check)
+{
+
+}
+END_TEST
+
+START_TEST (client_connection_check)
+{
+
+}
+END_TEST
+
+START_TEST (client_disconnect_check)
+{
+
+}
+END_TEST
+
+START_TEST (cg_cb_check)
+{
+
+}
+END_TEST
+
+START_TEST (bs_print_check)
+{
+
+}
+END_TEST
+
+START_TEST (bs_cb_check)
+{
+
+}
+END_TEST
+
+START_TEST (bg_cb_check)
+{
+
+}
+END_TEST
+
+START_TEST (buxton_group_create_check)
+{
+
+}
+END_TEST
+
+START_TEST (rg_cb_check)
+{
+
+}
+END_TEST
