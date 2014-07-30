@@ -56,11 +56,6 @@ typedef struct vstatus {
 	} val;
 } vstatus;
 /**
- * Saves errno at the beginning of methods that could change errno 
- * errno can be set by the programmer above a method call and checked after to see if method succeeds
- */
-void _save_errno(void);
-/**
  * Opens client connection when called by client_connection()
  */
 void _sbuxton_open(void);

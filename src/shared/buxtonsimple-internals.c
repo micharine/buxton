@@ -9,7 +9,6 @@
  * of the license, or (at your option) any later version.
  */
  
-#include <errno.h>
 #include <inttypes.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,13 +19,6 @@
 #include "log.h"
 
 BuxtonClient client=NULL;
-int saved_errno;
-
-/* Save errno */
-void _save_errno(void)
-{
-	saved_errno = errno;
-}
 
 /* Open client connection */
 void _sbuxton_open(void)
