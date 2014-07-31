@@ -124,7 +124,8 @@ TESTS = \
 	check_shared_lib \
 	check_daemon \
 	check_smack \
-	check_configurator
+	check_configurator \
+	check_buxtonsimple
 
 if COVERAGE
 coverage:
@@ -315,7 +316,8 @@ check_PROGRAMS = \
 	check_buxtond \
 	check_daemon \
 	check_smack \
-	check_configurator
+	check_configurator \
+	check_buxtonsimple
 
 check_buxton_SOURCES = \
 	test/check_utils.c \
@@ -418,6 +420,25 @@ check_configurator_CFLAGS = \
 check_configurator_LDADD = \
 	@CHECK_LIBS@ \
 	@INIPARSER_LIBS@ \
+	libbuxton-shared.la
+
+check_buxtonsimple_SOURCES = \
+	test/check_buxtonsimple.c \
+	src/core/daemon.c \
+	src/core/daemon.h
+check_buxtonsimple_CFLAGS = \
+	$(AM_CFLAGS) \
+	@CHECK_CFLAGS@ \
+	@INIPARSER_CFLAGS@ \
+	-DMAKE_CHECK \
+	-DABS_TOP_SRCDIR=\"$(abs_top_srcdir)\" \
+	-DABS_TOP_BUILDDIR=\"$(abs_top_builddir)\"
+check_buxtonsimple_LDADD = \
+	@CHECK_LIBS@ \
+	@INIPARSER_LIBS@ \
+	libbuxtonsimple.la \
+	libbuxtonsimple-shared.la \
+	libbuxton.la \
 	libbuxton-shared.la
 
 check_DATA = \

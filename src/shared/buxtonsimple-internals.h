@@ -56,6 +56,8 @@ typedef struct vstatus {
 	} val;
 } vstatus;
 
+extern BuxtonClient client;
+
 /**
  * Opens client connection when called by client_connection()
  */
