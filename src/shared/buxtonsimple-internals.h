@@ -45,7 +45,7 @@ typedef struct vstatus {
 	int status;
 	BuxtonDataType type;
 	union {
-		char * sval;
+		char *sval;
 		int32_t i32val;
 		uint32_t ui32val;
 		int64_t i64val;
@@ -55,46 +55,55 @@ typedef struct vstatus {
 		bool bval;
 	} val;
 } vstatus;
+
 /**
  * Opens client connection when called by client_connection()
  */
 void _sbuxton_open(void);
+
 /**
  * Closes client connections when called by client_disconnect()
  */
 void _sbuxton_close(void);
+
 /**
  * Checks for client connection and calls sbuxton_open if client connection is not open
  */
 void _client_connection(void);
+
 /**
  * Checks for client connections and calls sbuxton_close if client connection is open
  */
 void _client_disconnect(void);
+
 /**
  * Create group callback
  * @param response BuxtonResponse
  * @param data A void pointer that points to data passed in by buxton_create_group
  */
 void _cg_cb(BuxtonResponse response, void *data);
+
 /**
  * Prints the value that has been set along with the key name, group, and layer (when in debug mode)
  * @param data Pointer to structure with the value to be set, its type, and a status to be set on success
  * @param response A BuxtonResponse used to get and print the key name, group, and layer  
  */
 void _bs_print(vstatus *data, BuxtonResponse response);
+
 /** 
  * Buxton set value callback checks buxton_response_status and calls bs_print
  * @param response A BuxtonResponse that is used to see if value has been set properly  
  * @param data A void pointer to a vstatus structure with status that will be set
  */
 void _bs_cb(BuxtonResponse response, void *data);
+
 /**
  * Buxton get value callback
  * @param response A BuxtonResponse used to get the value and check status (buxton_response_status)
  * @param data A void pointer to a vstatus structure with status and value that will be set
  */
 void _bg_cb(BuxtonResponse response, void *data);
+
 /**
  * Creates a BuxtonKey internally for buxtond_remove_group to remove
  * @param name A group name that is a string (char *)
@@ -102,6 +111,7 @@ void _bg_cb(BuxtonResponse response, void *data);
  * @return A BuxtonKey that is a group
  */
 BuxtonKey _buxton_group_create(char *name, char *layer);
+
 /**
  * Remove group callback
  * @param response A BuxtonResponse

@@ -18,7 +18,7 @@
 #include "buxtonsimple-internals.h"
 #include "log.h"
 
-BuxtonClient client=NULL;
+BuxtonClient client = NULL;
 
 /* Open client connection */
 void _sbuxton_open(void)
@@ -67,12 +67,14 @@ void _cg_cb(BuxtonResponse response, void *data)
 		buxton_debug("Created group.\n");
 	}
 }
+
+/* Debug message for setting buxton key values */
 void _bs_print(vstatus *data, BuxtonResponse response)
 {
 	switch (data->type) {
 		case STRING:
 		{
-			char * val = data->val.sval;
+			char *val = data->val.sval;
 			buxton_debug("Success: value has been set: %s(string). ", val);
 			break;
 		}
@@ -138,15 +140,16 @@ void _bs_cb(BuxtonResponse response, void *data){
 		buxton_debug("Failed to set value.\n");
 		return;
 	}
-	ret->status =1;
+	ret->status = 1;
 	_bs_print(ret, response);
 
 }
 
+/* buxton_get_value callback for all buxton data types */
 void _bg_cb(BuxtonResponse response, void *data)
 {
 	char *type;
-	vstatus *ret= (vstatus *)data;
+	vstatus *ret = (vstatus *)data;
 	switch (ret->type) {
 		case STRING:
 		{
@@ -209,8 +212,8 @@ void _bg_cb(BuxtonResponse response, void *data)
 	}
 	ret->status = 1;
 }
-/* create a client side group TODO: create BuxtonGroup type
-	probably not really needed */
+
+/* create a client side group TODO: create BuxtonGroup type probably not really needed */
 BuxtonKey _buxton_group_create(char *name, char *layer)
 {
 	BuxtonKey ret = buxton_key_create(name, NULL, layer, STRING);

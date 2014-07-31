@@ -56,7 +56,7 @@ void buxtond_set_group(char *group, char *layer)
 	_client_disconnect();
 }
 
-
+/* Set and get int32_t value for buxton key with type INT32 */
 void buxtond_set_int32(char *key, int32_t value)
 {
 	/* make sure client connection is open */
@@ -106,6 +106,7 @@ int32_t buxtond_get_int32(char *key)
 	return ret.val.i32val;
 }
 
+/* Set and get char * value for buxton key with type STRING */
 void buxtond_set_string(char *key, char *value )
 {
 	/* make sure client connection is open */
@@ -154,6 +155,7 @@ char* buxtond_get_string(char *key)
 	return ret.val.sval;
 }
 
+/* Set and get uint32_t value for buxton key with type UINT32 */
 void buxtond_set_uint32(char *key, uint32_t value)
 {
 	/* make sure client connection is open */
@@ -201,6 +203,7 @@ uint32_t buxtond_get_uint32(char *key)
 	return ret.val.ui32val;
 }
 
+/* Set and get int64_t value for buxton key with type INT64 */
 void buxtond_set_int64(char *key, int64_t value)
 {
 	/* make sure client connection is open */
@@ -248,6 +251,7 @@ int64_t buxtond_get_int64(char *key)
 	return ret.val.i64val;
 }
 
+/* Set and get uint64_t value for buxton key with type UINT64 */
 void buxtond_set_uint64(char *key, uint64_t value)
 {
 	/* make sure client connection is open */
@@ -295,6 +299,7 @@ uint64_t buxtond_get_uint64(char *key)
 	return ret.val.ui64val;
 }
 
+/* Set and get float value for buxton key with type FLOAT */
 void buxtond_set_float(char *key, float value)
 {
 	/* make sure client connection is open */
@@ -342,6 +347,7 @@ float buxtond_get_float(char *key)
 	return ret.val.fval;
 }
 
+/* Set and get double value for buxton key with type DOUBLE */
 void buxtond_set_double(char *key, double value)
 {
 	/* make sure client connection is open */
@@ -389,6 +395,7 @@ double buxtond_get_double(char *key)
 	return ret.val.dval;
 }
 
+/* Set and get bool value for buxton key with type BOOLEAN */
 void buxtond_set_bool(char *key, bool value)
 {
 	/* make sure client connection is open */
@@ -436,6 +443,7 @@ bool buxtond_get_bool(char *key)
 	return ret.val.bval;
 }
 
+/* Remove group given its name and layer */
 void buxtond_remove_group(char *group_name, char *layer)
 {
 	/* make sure client connection is open */
