@@ -448,9 +448,16 @@ void buxtond_remove_group(char *group_name, char *layer)
 {
 	/* make sure client connection is open */
 	_client_connection();
+	saved_errno = errno;
 	BuxtonKey group = _buxton_group_create(group_name, layer);
-	if (buxton_remove_group(client, group, _rg_cb, NULL, true)) {
+	int status;
+	if (buxton_remove_group(client, group, _rg_cb, &status, true)) {
 		buxton_debug("Remove group call failed.\n");
+	}
+	if (!status) {
+		errno = EACCES;
+	} else {
+		errno = saved_errno;
 	}
 	buxton_key_free(group);
 	_client_disconnect();

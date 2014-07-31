@@ -223,9 +223,12 @@ BuxtonKey _buxton_group_create(char *name, char *layer)
 /* buxton_remove_group callback and function */
 void _rg_cb(BuxtonResponse response, void *data)
 {
+	int *ret = (int *)data;
+	*ret = 0;
 	if (buxton_response_status(response) != 0) {
 		buxton_debug("Failed to remove group.\n");
 	} else {
+		*ret = 1;
 		buxton_debug("Removed group.\n");
 	}
 }
