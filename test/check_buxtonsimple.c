@@ -283,6 +283,8 @@ END_TEST
 
 START_TEST (sbuxton_open_check)
 {
+	_sbuxton_open_check();
+	fail_if(extern client == NULL, "could not open client connection");
 //how to test things that affect globals in lib?
 //affects client
 //just call it i guess
@@ -291,6 +293,9 @@ END_TEST
 
 START_TEST (sbuxton_close_check)
 {
+	_sbuxton_open();
+	fail_if(extern client == NULL, "could not open client connection");
+	_sbuxton_close();
 //how to test things that affect globals in lib?
 //affects client
 }
@@ -298,6 +303,8 @@ END_TEST
 
 START_TEST (client_connection_check)
 {
+	_client_connection()
+	fail_if(extern client == NULL, "could not open client connection");
 //how to test things that affect globals in lib?
 //affects client
 }
@@ -305,6 +312,10 @@ END_TEST
 
 START_TEST (client_disconnect_check)
 {
+	_client_connection()
+	fail_if(extern client == NULL, "could not open client connection");
+	_client_disconnect()
+	fail_if(extern client != NULL, "could not close client connection");
 //how to test things that affect globals in lib?
 //affects client
 }
@@ -312,6 +323,15 @@ END_TEST
 
 START_TEST (cg_cb_check)
 {
+	BuxtonResponse resp;
+	resp.data = NULL;
+	resp.type = BUXTON_CONTROLL_CHANGED
+	resp.key = NULL;
+
+	int *data;
+	*data = 7;
+
+	_cg_cb(resp, data);
  //how to test callbacks?
  //create dummy response for the callback to use
 }
@@ -319,6 +339,18 @@ END_TEST
 
 START_TEST (bs_print_check)
 {
+	vstatus *data;
+	data->status = 1;
+	data->type = STRING;
+	data->val.sval = "test";
+
+	BuxtonKey key = buxton_key_create("group", "keyname", "layer", STRING);
+	BuxtonResponse resp;
+	resp.data = NULL;
+	resp.type = BUXTON_CONTROL_GET;
+	resp.key = key;
+
+	_bs_print(data, resp);
 //do i need to test this? What tests do i do for
 //a switch that just prints stuff?
 }
@@ -326,6 +358,18 @@ END_TEST
 
 START_TEST (bs_cb_check)
 {
+	vstatus *data;
+	data->status = 1;
+	data->type = STRING;
+	data->val.sval = "test";
+
+	BuxtonKey key = buxton_key_create("group", "keyname", "layer", STRING);
+	BuxtonResponse resp;
+	resp.data = NULL;
+	resp.type = BUXTON_CONTROL_GET;
+	resp.key = key;
+
+	_bs_cb(resp, data);
  //how to test callbacks?
  //create dummy response for the callback to use
 }
@@ -333,6 +377,18 @@ END_TEST
 
 START_TEST (bg_cb_check)
 {
+	vstatus *data;
+	data->status = 1;
+	data->type = STRING;
+	data->val.sval = "test";
+
+	BuxtonKey key = buxton_key_create("group", "keyname", "layer", STRING);
+	BuxtonResponse resp;
+	resp.data = NULL;
+	resp.type = BUXTON_CONTROL_GET;
+	resp.key = key;
+
+	_bg_cb(resp, data);
  //how to test callbacks?
  //create dummy response for the callback to use
 }
@@ -347,6 +403,12 @@ END_TEST
 
 START_TEST (rg_cb_check)
 {
+	BuxtonResponse resp;
+	resp.data = NULL;
+	resp.type = BUXTON_CONTROLL_CHANGED
+	resp.key = NULL;
+
+	_rg_cb)resp, NULL);
  //how to test callbacks?
 }
 END_TEST
