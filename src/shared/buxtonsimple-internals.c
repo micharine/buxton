@@ -20,31 +20,19 @@
 
 BuxtonClient client = NULL;
 
-/* Open client connection */
-void _sbuxton_open(void)
-{
-	if ((buxton_open(&client)) <0 ) {
-		buxton_debug("Couldn't connect.\n");
-		return;
-	}
-	buxton_debug("Connection successful.\n");
-}
-
-/* Close client connection */
-void _sbuxton_close(void)
-{ 
-	buxton_close(client);
-	buxton_debug("Connection closed\n");
-}
-
 /* Make sure client connection is open */
-void _client_connection(void)
+int _client_connection(void)
 {
 	/* Check if client connection is open */
 	if (!client) {
 		/* Open connection if needed */
-		_sbuxton_open();
+		if ((buxton_open(&client)) <0 ) {
+			buxton_debug("Couldn't connect.\n");
+			return 0;
+		}	
+		buxton_debug("Connection successful.\n");
 	}
+	return 1;
 }
 
 /* Close an open client connection */
@@ -53,7 +41,8 @@ void _client_disconnect(void)
 	/* Only attempt to close the client if it != NULL */
 	if (client) {
 		/* Close the connection */
-		_sbuxton_close();
+		buxton_close(client);
+		buxton_debug("Connection closed\n");
 		client = NULL;
 	}
 }

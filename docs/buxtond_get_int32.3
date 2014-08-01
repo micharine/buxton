@@ -235,7 +235,7 @@ int main(void)
 
 .SH "RETURN VALUE"
 .PP
-Returns the value of the key on success. On failure, errno is set to EACCES
+Returns the value of the key on success\&. On failure, errno is set to EBADMSG if the client couldn't connect and EACCES otherwise.
 
 .SH "COPYRIGHT"
 .PP

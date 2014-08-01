@@ -33,7 +33,10 @@ static int saved_errno;
 /* Initialization of group */
 void buxtond_set_group(char *group, char *layer)
 {
-	_client_connection();
+	if (!_client_connection()) {
+		errno = EBADMSG;
+		return;
+	}
 	saved_errno = errno;
 	/* strcpy the name of the layer and group*/
 	strncpy(_layer, layer, MAX_LG_LEN-1);
@@ -60,7 +63,10 @@ void buxtond_set_group(char *group, char *layer)
 void buxtond_set_int32(char *key, int32_t value)
 {
 	/* make sure client connection is open */
-	_client_connection();
+	if (!_client_connection()) {
+		errno = EBADMSG;
+		return;
+	}
 	/* create key  */
 	BuxtonKey _key = buxton_key_create(_group, key, _layer, INT32);
 	/* return value and status */
@@ -85,7 +91,10 @@ void buxtond_set_int32(char *key, int32_t value)
 int32_t buxtond_get_int32(char *key)
 {
 	/* make sure client connection is open */
-	_client_connection();
+	if (!_client_connection()) {
+		errno = EBADMSG;
+		return -1;
+	}
 	/* create key */
 	BuxtonKey _key = buxton_key_create(_group, key, _layer, INT32);
 	/* return value */
@@ -110,7 +119,10 @@ int32_t buxtond_get_int32(char *key)
 void buxtond_set_string(char *key, char *value )
 {
 	/* make sure client connection is open */
-	_client_connection();
+	if (!_client_connection()) {
+		errno = EBADMSG;
+		return;
+	}
 	/* create key */
 	BuxtonKey _key = buxton_key_create(_group, key, _layer, STRING);
 	/* return value and status */
@@ -134,7 +146,10 @@ void buxtond_set_string(char *key, char *value )
 char* buxtond_get_string(char *key)
 {
 	/* make sure client connection is open */
-	_client_connection();
+	if (!_client_connection()) {
+		errno = EBADMSG;
+		return NULL;
+	}
 	/* create key */
 	BuxtonKey _key = buxton_key_create(_group, key, _layer, STRING);
 	/* return value */
@@ -159,7 +174,10 @@ char* buxtond_get_string(char *key)
 void buxtond_set_uint32(char *key, uint32_t value)
 {
 	/* make sure client connection is open */
-	_client_connection();
+	if (!_client_connection()) {
+		errno = EBADMSG;
+		return;
+	}
 	/* create key */
 	BuxtonKey _key = buxton_key_create(_group, key, _layer, UINT32);
 	/* return value and status */
@@ -182,7 +200,10 @@ void buxtond_set_uint32(char *key, uint32_t value)
 uint32_t buxtond_get_uint32(char *key)
 {
 	/* make sure client connection is open */
-	_client_connection();
+	if (!_client_connection()) {
+		errno = EBADMSG;
+		return 0;
+	}
 	/* create key */
 	BuxtonKey _key = buxton_key_create(_group, key, _layer, UINT32);
 	/* return value */
@@ -207,7 +228,10 @@ uint32_t buxtond_get_uint32(char *key)
 void buxtond_set_int64(char *key, int64_t value)
 {
 	/* make sure client connection is open */
-	_client_connection();
+	if (!_client_connection()) {
+		errno = EBADMSG;
+		return;
+	}
 	/* create key */
 	BuxtonKey _key = buxton_key_create(_group, key, _layer, INT64);
 	/* return value and status */
@@ -230,7 +254,10 @@ void buxtond_set_int64(char *key, int64_t value)
 int64_t buxtond_get_int64(char *key)
 {
 	/* make sure client connection is open */
-	_client_connection();
+	if (!_client_connection()) {
+		errno = EBADMSG;
+		return -1;
+	}
 	/* create key */
 	BuxtonKey _key = buxton_key_create(_group, key, _layer, INT64);
 	/* return value */
@@ -255,7 +282,10 @@ int64_t buxtond_get_int64(char *key)
 void buxtond_set_uint64(char *key, uint64_t value)
 {
 	/* make sure client connection is open */
-	_client_connection();
+	if (!_client_connection()) {
+		errno = EBADMSG;
+		return;
+	}
 	/* create key */
 	BuxtonKey _key = buxton_key_create(_group, key, _layer, UINT64);
 	/* return value and status */
@@ -278,7 +308,10 @@ void buxtond_set_uint64(char *key, uint64_t value)
 uint64_t buxtond_get_uint64(char *key)
 {
 	/* make sure client connection is open */
-	_client_connection();
+	if (!_client_connection()) {
+		errno = EBADMSG;
+		return 0;
+	}
 	/* create key */
 	BuxtonKey _key = buxton_key_create(_group, key, _layer, UINT64);
 	/* return value */
@@ -303,7 +336,10 @@ uint64_t buxtond_get_uint64(char *key)
 void buxtond_set_float(char *key, float value)
 {
 	/* make sure client connection is open */
-	_client_connection();
+	if (!_client_connection()) {
+		errno = EBADMSG;
+		return;
+	}
 	/* create key */
 	BuxtonKey _key = buxton_key_create(_group, key, _layer, FLOAT);
 	/* return value and status */
@@ -326,7 +362,10 @@ void buxtond_set_float(char *key, float value)
 float buxtond_get_float(char *key)
 {
 	/* make sure client connection is open */
-	_client_connection();
+	if (!_client_connection()) {
+		errno = EBADMSG;
+		return -1;
+	}
 	/* create key */
 	BuxtonKey _key = buxton_key_create(_group, key, _layer, FLOAT);
 	/* return value */
@@ -351,7 +390,10 @@ float buxtond_get_float(char *key)
 void buxtond_set_double(char *key, double value)
 {
 	/* make sure client connection is open */
-	_client_connection();
+	if (!_client_connection()) {
+		errno = EBADMSG;
+		return;
+	}
 	/* create key */
 	BuxtonKey _key = buxton_key_create(_group, key, _layer, DOUBLE);
 	/* return value and status */
@@ -374,7 +416,10 @@ void buxtond_set_double(char *key, double value)
 double buxtond_get_double(char *key)
 {
 	/* make sure client connection is open */
-	_client_connection();
+	if (!_client_connection()) {
+		errno = EBADMSG;
+		return -1;
+	}
 	/* create key */
 	BuxtonKey _key = buxton_key_create(_group, key, _layer, DOUBLE);
 	/* return value */
@@ -399,7 +444,10 @@ double buxtond_get_double(char *key)
 void buxtond_set_bool(char *key, bool value)
 {
 	/* make sure client connection is open */
-	_client_connection();
+	if (!_client_connection()) {
+		errno = EBADMSG;
+		return;
+	}
 	/* create key */
 	BuxtonKey _key = buxton_key_create(_group, key, _layer, BOOLEAN);
 	/* return value and status */
@@ -422,7 +470,10 @@ void buxtond_set_bool(char *key, bool value)
 bool buxtond_get_bool(char *key)
 {
 	/* make sure client connection is open */
-	_client_connection();
+	if (!_client_connection()) {
+		errno = EBADMSG;
+		return false;
+	}
 	/* create key */
 	BuxtonKey _key = buxton_key_create(_group, key, _layer, BOOLEAN);
 	/* return value */
@@ -447,7 +498,10 @@ bool buxtond_get_bool(char *key)
 void buxtond_remove_group(char *group_name, char *layer)
 {
 	/* make sure client connection is open */
-	_client_connection();
+	if (!_client_connection()) {
+		errno = EBADMSG;
+		return;
+	}
 	saved_errno = errno;
 	BuxtonKey group = _buxton_group_create(group_name, layer);
 	int status;

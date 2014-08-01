@@ -59,22 +59,13 @@ typedef struct vstatus {
 extern BuxtonClient client;
 
 /**
- * Opens client connection when called by client_connection()
+ * Checks for client connection and opens it if client connection is not open
+ * @return Returns 1 on success and 0 on failure
  */
-void _sbuxton_open(void);
+int _client_connection(void);
 
 /**
- * Closes client connections when called by client_disconnect()
- */
-void _sbuxton_close(void);
-
-/**
- * Checks for client connection and calls sbuxton_open if client connection is not open
- */
-void _client_connection(void);
-
-/**
- * Checks for client connections and calls sbuxton_close if client connection is open
+ * Checks for client connections and closes it if client connection is open
  */
 void _client_disconnect(void);
 
