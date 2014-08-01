@@ -103,9 +103,9 @@ static void teardown(void)
 /* start libbuxtonsimple test */
 START_TEST (buxtond_set_group_check)
 {
-	/* do this test first to setup group for other tests */
 	errno = 0;	
 	buxtond_set_group("tg_s0", "user");
+	fail_if(errno == ENOTCONN, "Connection failed");
 	fail_if(errno == EBADMSG, "Set group failed");
 }
 END_TEST
@@ -114,9 +114,11 @@ START_TEST (buxtond_set_int32_check)
 {
 	errno = 0;	
 	buxtond_set_group("tg_s0", "user");
+	fail_if(errno == ENOTCONN, "Connection failed");
 	int32_t int32_val = 5;
 	errno = 0;
 	buxtond_set_int32("int32key", int32_val);
+	fail_if(errno == ENOTCONN, "Connection failed");
 	fail_if(errno == EACCES, "Set int32 failed");
 }
 END_TEST
@@ -125,12 +127,15 @@ START_TEST (buxtond_get_int32_check)
 {
 	errno = 0;	
 	buxtond_set_group("tg_s0", "user");
+	fail_if(errno == ENOTCONN, "Connection failed");
 	int32_t int32_val = 5;
 	errno = 0;
 	buxtond_set_int32("int32key", int32_val);
+	fail_if(errno == ENOTCONN, "Connection failed");
 	fail_if(errno == EACCES, "Set int32 failed");
 	errno = 0;
 	int32_t ret = buxtond_get_int32("int32key");
+	fail_if(errno == ENOTCONN, "Connection failed");
 	fail_if(errno == EACCES, "Get int32 failed");
 	fail_if(ret != int32_val, "Get int32 returned wrong value");
 }
@@ -140,9 +145,11 @@ START_TEST (buxtond_set_string_check)
 {
 	errno = 0;	
 	buxtond_set_group("tg_s0", "user");
+	fail_if(errno == ENOTCONN, "Connection failed");
 	char *string_val = "Testing...";
 	errno = 0;
 	buxtond_set_string("stringkey", string_val);
+	fail_if(errno == ENOTCONN, "Connection failed");
 	fail_if(errno == EACCES, "Set string failed");
 }
 END_TEST
@@ -151,12 +158,15 @@ START_TEST (buxtond_get_string_check)
 {
 	errno = 0;	
 	buxtond_set_group("tg_s0", "user");
+	fail_if(errno == ENOTCONN, "Connection failed");
 	char *string_val = "Testing...";
 	errno = 0;
 	buxtond_set_string("stringkey", string_val);
+	fail_if(errno == ENOTCONN, "Connection failed");
 	fail_if(errno == EACCES, "Set string failed");
 	errno = 0;
 	char* ret = buxtond_get_string("stringkey");
+	fail_if(errno == ENOTCONN, "Connection failed");
 	fail_if(errno == EACCES, "Get string failed");
 	fail_if(strcmp(ret, string_val), "Get string returned wrong value");
 }
@@ -166,9 +176,11 @@ START_TEST (buxtond_set_uint32_check)
 {
 	errno = 0;	
 	buxtond_set_group("tg_s0", "user");
+	fail_if(errno == ENOTCONN, "Connection failed");
 	uint32_t uint32_val = 5;
 	errno = 0;
 	buxtond_set_uint32("uint32key", uint32_val);
+	fail_if(errno == ENOTCONN, "Connection failed");
 	fail_if(errno == EACCES, "Set uint32 failed");
 }
 END_TEST
@@ -177,12 +189,15 @@ START_TEST (buxtond_get_uint32_check)
 {
 	errno = 0;	
 	buxtond_set_group("tg_s0", "user");
+	fail_if(errno == ENOTCONN, "Connection failed");
 	uint32_t uint32_val = 5;
 	errno = 0;
 	buxtond_set_uint32("uint32key", uint32_val);
+	fail_if(errno == ENOTCONN, "Connection failed");
 	fail_if(errno == EACCES, "Set uint32 failed");
 	errno = 0;
 	uint32_t ret = buxtond_get_uint32("uint32key");
+	fail_if(errno == ENOTCONN, "Connection failed");
 	fail_if(errno == EACCES, "Get uint32 failed");
 	fail_if(ret != uint32_val, "Get uint32 returned wrong value");
 }
@@ -192,9 +207,11 @@ START_TEST (buxtond_set_int64_check)
 {
 	errno = 0;	
 	buxtond_set_group("tg_s0", "user");
+	fail_if(errno == ENOTCONN, "Connection failed");
 	int64_t int64_val = 5;
 	errno = 0;
 	buxtond_set_int64("int64key", int64_val);
+	fail_if(errno == ENOTCONN, "Connection failed");
 	fail_if(errno == EACCES, "Set int64 failed");
 }
 END_TEST
@@ -203,12 +220,15 @@ START_TEST (buxtond_get_int64_check)
 {
 	errno = 0;	
 	buxtond_set_group("tg_s0", "user");
+	fail_if(errno == ENOTCONN, "Connection failed");
 	int64_t int64_val = 5;
 	errno = 0;
 	buxtond_set_int64("int64key", int64_val);
+	fail_if(errno == ENOTCONN, "Connection failed");
 	fail_if(errno == EACCES, "Set int64 failed");
 	errno = 0;
 	int64_t ret = buxtond_get_int64("int64key");
+	fail_if(errno == ENOTCONN, "Connection failed");
 	fail_if(errno == EACCES, "Get int64 failed");
 	fail_if(ret != int64_val, "Get int64 returned wrong value");
 }
@@ -218,9 +238,11 @@ START_TEST (buxtond_set_uint64_check)
 {
 	errno = 0;	
 	buxtond_set_group("tg_s0", "user");
+	fail_if(errno == ENOTCONN, "Connection failed");
 	uint64_t uint64_val = 5;
 	errno = 0;
 	buxtond_set_uint64("uint64key", uint64_val);
+	fail_if(errno == ENOTCONN, "Connection failed");
 	fail_if(errno == EACCES, "Set uint64 failed");
 }
 END_TEST
@@ -229,12 +251,15 @@ START_TEST (buxtond_get_uint64_check)
 {
 	errno = 0;	
 	buxtond_set_group("tg_s0", "user");
+	fail_if(errno == ENOTCONN, "Connection failed");
 	uint64_t uint64_val = 5;
 	errno = 0;
 	buxtond_set_uint64("uint64key", uint64_val);
+	fail_if(errno == ENOTCONN, "Connection failed");
 	fail_if(errno == EACCES, "Set uint64 failed");
 	errno = 0;
 	uint64_t ret = buxtond_get_uint64("uint64key");
+	fail_if(errno == ENOTCONN, "Connection failed");
 	fail_if(errno == EACCES, "Get uint64 failed");
 	fail_if(ret != uint64_val, "Get uint64 returned wrong value");
 }
@@ -244,9 +269,11 @@ START_TEST (buxtond_set_float_check)
 {
 	errno = 0;	
 	buxtond_set_group("tg_s0", "user");
+	fail_if(errno == ENOTCONN, "Connection failed");
 	float float_val = 5.5;
 	errno = 0;
 	buxtond_set_float("floatkey", float_val);
+	fail_if(errno == ENOTCONN, "Connection failed");
 	fail_if(errno == EACCES, "Set float failed");
 }
 END_TEST
@@ -255,12 +282,15 @@ START_TEST (buxtond_get_float_check)
 {
 	errno = 0;	
 	buxtond_set_group("tg_s0", "user");
+	fail_if(errno == ENOTCONN, "Connection failed");
 	float float_val = 5.5;
 	errno = 0;
 	buxtond_set_float("floatkey", float_val);
+	fail_if(errno == ENOTCONN, "Connection failed");
 	fail_if(errno == EACCES, "Set float failed");
 	errno = 0;
 	float ret = buxtond_get_float("floatkey");
+	fail_if(errno == ENOTCONN, "Connection failed");
 	fail_if(errno == EACCES, "Get float failed");
 	fail_if(ret != float_val, "Get float returned wrong value");
 }
@@ -270,9 +300,11 @@ START_TEST (buxtond_set_double_check)
 {
 	errno = 0;	
 	buxtond_set_group("tg_s0", "user");
+	fail_if(errno == ENOTCONN, "Connection failed");
 	double double_val = 5;
 	errno = 0;
 	buxtond_set_double("double", double_val);
+	fail_if(errno == ENOTCONN, "Connection failed");
 	fail_if(errno == EACCES, "Set double failed");
 }
 END_TEST
@@ -281,12 +313,15 @@ START_TEST (buxtond_get_double_check)
 {
 	errno = 0;	
 	buxtond_set_group("tg_s0", "user");
+	fail_if(errno == ENOTCONN, "Connection failed");
 	double double_val = 5;
 	errno = 0;
 	buxtond_set_double("doublekey", double_val);
+	fail_if(errno == ENOTCONN, "Connection failed");
 	fail_if(errno == EACCES, "Set double failed");
 	errno = 0;
 	double ret = buxtond_get_double("doublekey");
+	fail_if(errno == ENOTCONN, "Connection failed");
 	fail_if(errno == EACCES, "Get double failed");
 	fail_if(ret != double_val, "Get double returned wrong value");
 }
@@ -296,9 +331,11 @@ START_TEST (buxtond_set_bool_check)
 {
 	errno = 0;	
 	buxtond_set_group("tg_s0", "user");
+	fail_if(errno == ENOTCONN, "Connection failed");
 	bool bool_val = false;
 	errno = 0;
 	buxtond_set_bool("boolkey", bool_val);
+	fail_if(errno == ENOTCONN, "Connection failed");
 	fail_if(errno == EACCES, "Set bool failed");
 }
 END_TEST
@@ -307,12 +344,15 @@ START_TEST (buxtond_get_bool_check)
 {
 	errno = 0;	
 	buxtond_set_group("tg_s0", "user");
+	fail_if(errno == ENOTCONN, "Connection failed");
 	bool bool_val = false;
 	errno = 0;
 	buxtond_set_bool("boolkey", bool_val);
+	fail_if(errno == ENOTCONN, "Connection failed");
 	fail_if(errno == EACCES, "Set bool failed");
 	errno = 0;
 	bool ret = buxtond_get_bool("boolkey");
+	fail_if(errno == ENOTCONN, "Connection failed");
 	fail_if(errno == EACCES, "Get bool failed");
 	fail_if(ret != bool_val, "Get bool returned wrong value");
 }
@@ -322,7 +362,10 @@ START_TEST (buxtond_remove_group_check)
 {
 	errno = 0;	
 	buxtond_set_group("tg_s0", "user");
+	fail_if(errno == ENOTCONN, "Connection failed");
 	buxtond_remove_group("tg_s0", "user");
+	fail_if(errno == ENOTCONN, "Connection failed");
+	fail_if(errno == EACCES, "Removal Failed");
 	//wait to do this test until michelle puts errno in this func
 }
 END_TEST
@@ -330,14 +373,18 @@ END_TEST
 /* Start buxtonsimple-internal tests */
 START_TEST (client_connection_check)
 {
-	_client_connection();
+	int ret;
+	ret = _client_connection();
+	fail_if(!ret, "Client connection failed- returned 0");
 	fail_if(client == NULL, "could not open client connection");
 }
 END_TEST
 
 START_TEST (client_disconnect_check)
 {
-	_client_connection();
+	int ret;
+	ret = _client_connection();
+	fail_if(!ret, "Client connection failed- returned 0");
 	fail_if(client == NULL, "could not open client connection");
 	_client_disconnect();
 	fail_if(client != NULL, "could not close client connection");
