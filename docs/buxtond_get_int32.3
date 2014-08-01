@@ -65,7 +65,7 @@ int32_t. The key\-name is referenced by \fIkey\fR,
 a string that corresponds to a key\-name in the current group and layer.
 
 If the function call fails, a message is printed to stderr, and errno is
-set to EACCES.
+set to EACCES or ENOTCONN.
 
 .SH "CODE EXAMPLE"
 .nf
@@ -235,7 +235,8 @@ int main(void)
 
 .SH "RETURN VALUE"
 .PP
-Returns the value of the key on success\&. On failure, errno is set to EBADMSG if the client couldn't connect and EACCES otherwise.
+Returns the value of the key on success\&. On failure, errno is set to ENOTCONN
+if the client couldn't connect and EACCES otherwise.
 
 .SH "COPYRIGHT"
 .PP

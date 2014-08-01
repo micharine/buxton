@@ -328,21 +328,6 @@ START_TEST (buxtond_remove_group_check)
 END_TEST
 
 /* Start buxtonsimple-internal tests */
-START_TEST (sbuxton_open_check)
-{
-	_sbuxton_open();
-	fail_if(client == NULL, "could not open client connection");
-}
-END_TEST
-
-START_TEST (sbuxton_close_check)
-{
-	_sbuxton_open();
-	fail_if(client == NULL, "could not open client connection");
-	_sbuxton_close();
-}
-END_TEST
-
 START_TEST (client_connection_check)
 {
 	_client_connection();
@@ -379,7 +364,7 @@ START_TEST (bs_print_check)
 	data->type = STRING;
 	data->val.sval = "test";
 
-	BuxtonKey key = buxton_key_create("group", "keyname", "layer", STRING);
+	BuxtonKey key = buxton_key_create("tg_s0", "keyname", "user", STRING);
 	_BuxtonResponse resp;
 	resp.data = NULL;
 	resp.type = BUXTON_CONTROL_GET;
@@ -397,7 +382,7 @@ START_TEST (bs_cb_check)
 	data->type = STRING;
 	data->val.sval = "test";
 
-	BuxtonKey key = buxton_key_create("group", "keyname", "layer", STRING);
+	BuxtonKey key = buxton_key_create("tg_s0", "keyname", "user", STRING);
 	_BuxtonResponse resp;
 	resp.data = NULL;
 	resp.type = BUXTON_CONTROL_GET;
@@ -415,7 +400,7 @@ START_TEST (bg_cb_check)
 	data->type = STRING;
 	data->val.sval = "test";
 
-	BuxtonKey key = buxton_key_create("group", "keyname", "layer", STRING);
+	BuxtonKey key = buxton_key_create("tg_s0", "keyname", "user", STRING);
 	_BuxtonResponse resp;
 	resp.data = NULL;
 	resp.type = BUXTON_CONTROL_CHANGED;
@@ -428,7 +413,7 @@ END_TEST
 
 START_TEST (buxton_group_create_check)
 {
-	BuxtonKey key = _buxton_group_create("group", "layer");
+	BuxtonKey key = _buxton_group_create("tg_s0", "user");
 	fail_if(!key, "Failed to create group key");
 }
 END_TEST
@@ -476,8 +461,6 @@ buxtonsimp_suite(void)
 	suite_add_tcase(s, tc);
 
 	tc = tcase_create("buxtonsimple_internal");
-	tcase_add_test(tc, sbuxton_open_check);
-	tcase_add_test(tc, sbuxton_close_check);
 	tcase_add_test(tc, client_connection_check);
 	tcase_add_test(tc, client_disconnect_check);
 	tcase_add_test(tc, cg_cb_check);

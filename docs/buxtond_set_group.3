@@ -233,7 +233,10 @@ int main(void)
 
 .SH "RETURN VALUE"
 .PP
-Returns void\&. Prints to buxton_debug on failure and success\&. On failure, sets errno to EBADMSG if client couldn't connect and sets errno to EACCES otherwise.
+Returns void\&. Prints to buxton_debug on failure and success\&. On failure, sets
+errno to ENOTCONN if client couldn't connect and sets errno to EBADMSG otherwise.
+Note that EBADMSG could mean that the group was not created because it already
+exist.
 
 .SH "COPYRIGHT"
 .PP

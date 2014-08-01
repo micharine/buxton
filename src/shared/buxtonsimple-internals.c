@@ -50,10 +50,13 @@ void _client_disconnect(void)
 /* Create group callback */
 void _cg_cb(BuxtonResponse response, void *data)
 {
+	int *status = (int *)data;
+	*status = 0;
 	if (buxton_response_status(response) != 0) {
 		buxton_debug("Failed to create group (may already exist).\n");
 	} else {
 		buxton_debug("Created group.\n");
+		*status = 1;
 	}
 }
 

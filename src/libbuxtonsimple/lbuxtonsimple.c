@@ -34,10 +34,11 @@ static int saved_errno;
 void buxtond_set_group(char *group, char *layer)
 {
 	if (!_client_connection()) {
-		errno = EBADMSG;
+		errno = ENOTCONN;
 		return;
 	}
 	saved_errno = errno;
+	int status = 0;
 	/* strcpy the name of the layer and group*/
 	strncpy(_layer, layer, MAX_LG_LEN-1);
 	strncpy(_group, group, MAX_LG_LEN-1);
@@ -46,14 +47,14 @@ void buxtond_set_group(char *group, char *layer)
 	_group[MAX_LG_LEN -1] = '\0';
 	BuxtonKey g = buxton_key_create(_group, NULL, _layer, STRING);
 	buxton_debug("buxton key group = %s\n", buxton_key_get_group(g));
-	if (buxton_create_group(client, g, _cg_cb, NULL, true)) {
+	if (buxton_create_group(client, g, _cg_cb, &status, true)
+		|| !status) {
 		buxton_debug("Create group call failed.\n");
-		buxton_key_free(g);
-		_client_disconnect();
-		return;
+		errno = EBADMSG;
 	} else {
 		buxton_debug("Switched to group: %s, layer: %s.\n", buxton_key_get_group(g),
  	buxton_key_get_layer(g));
+		errno = saved_errno;
 	}
 	buxton_key_free(g);
 	_client_disconnect();
@@ -64,7 +65,7 @@ void buxtond_set_int32(char *key, int32_t value)
 {
 	/* make sure client connection is open */
 	if (!_client_connection()) {
-		errno = EBADMSG;
+		errno = ENOTCONN;
 		return;
 	}
 	/* create key  */
@@ -92,7 +93,7 @@ int32_t buxtond_get_int32(char *key)
 {
 	/* make sure client connection is open */
 	if (!_client_connection()) {
-		errno = EBADMSG;
+		errno = ENOTCONN;
 		return -1;
 	}
 	/* create key */
@@ -120,7 +121,7 @@ void buxtond_set_string(char *key, char *value )
 {
 	/* make sure client connection is open */
 	if (!_client_connection()) {
-		errno = EBADMSG;
+		errno = ENOTCONN;
 		return;
 	}
 	/* create key */
@@ -147,7 +148,7 @@ char* buxtond_get_string(char *key)
 {
 	/* make sure client connection is open */
 	if (!_client_connection()) {
-		errno = EBADMSG;
+		errno = ENOTCONN;
 		return NULL;
 	}
 	/* create key */
@@ -175,7 +176,7 @@ void buxtond_set_uint32(char *key, uint32_t value)
 {
 	/* make sure client connection is open */
 	if (!_client_connection()) {
-		errno = EBADMSG;
+		errno = ENOTCONN;
 		return;
 	}
 	/* create key */
@@ -201,7 +202,7 @@ uint32_t buxtond_get_uint32(char *key)
 {
 	/* make sure client connection is open */
 	if (!_client_connection()) {
-		errno = EBADMSG;
+		errno = ENOTCONN;
 		return 0;
 	}
 	/* create key */
@@ -229,7 +230,7 @@ void buxtond_set_int64(char *key, int64_t value)
 {
 	/* make sure client connection is open */
 	if (!_client_connection()) {
-		errno = EBADMSG;
+		errno = ENOTCONN;
 		return;
 	}
 	/* create key */
@@ -255,7 +256,7 @@ int64_t buxtond_get_int64(char *key)
 {
 	/* make sure client connection is open */
 	if (!_client_connection()) {
-		errno = EBADMSG;
+		errno = ENOTCONN;
 		return -1;
 	}
 	/* create key */
@@ -283,7 +284,7 @@ void buxtond_set_uint64(char *key, uint64_t value)
 {
 	/* make sure client connection is open */
 	if (!_client_connection()) {
-		errno = EBADMSG;
+		errno = ENOTCONN;
 		return;
 	}
 	/* create key */
@@ -309,7 +310,7 @@ uint64_t buxtond_get_uint64(char *key)
 {
 	/* make sure client connection is open */
 	if (!_client_connection()) {
-		errno = EBADMSG;
+		errno = ENOTCONN;
 		return 0;
 	}
 	/* create key */
@@ -337,7 +338,7 @@ void buxtond_set_float(char *key, float value)
 {
 	/* make sure client connection is open */
 	if (!_client_connection()) {
-		errno = EBADMSG;
+		errno = ENOTCONN;
 		return;
 	}
 	/* create key */
@@ -363,7 +364,7 @@ float buxtond_get_float(char *key)
 {
 	/* make sure client connection is open */
 	if (!_client_connection()) {
-		errno = EBADMSG;
+		errno = ENOTCONN;
 		return -1;
 	}
 	/* create key */
@@ -391,7 +392,7 @@ void buxtond_set_double(char *key, double value)
 {
 	/* make sure client connection is open */
 	if (!_client_connection()) {
-		errno = EBADMSG;
+		errno = ENOTCONN;
 		return;
 	}
 	/* create key */
@@ -417,7 +418,7 @@ double buxtond_get_double(char *key)
 {
 	/* make sure client connection is open */
 	if (!_client_connection()) {
-		errno = EBADMSG;
+		errno = ENOTCONN;
 		return -1;
 	}
 	/* create key */
@@ -445,7 +446,7 @@ void buxtond_set_bool(char *key, bool value)
 {
 	/* make sure client connection is open */
 	if (!_client_connection()) {
-		errno = EBADMSG;
+		errno = ENOTCONN;
 		return;
 	}
 	/* create key */
@@ -471,7 +472,7 @@ bool buxtond_get_bool(char *key)
 {
 	/* make sure client connection is open */
 	if (!_client_connection()) {
-		errno = EBADMSG;
+		errno = ENOTCONN;
 		return false;
 	}
 	/* create key */
@@ -499,7 +500,7 @@ void buxtond_remove_group(char *group_name, char *layer)
 {
 	/* make sure client connection is open */
 	if (!_client_connection()) {
-		errno = EBADMSG;
+		errno = ENOTCONN;
 		return;
 	}
 	saved_errno = errno;
