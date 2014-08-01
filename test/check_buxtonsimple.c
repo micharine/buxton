@@ -48,9 +48,9 @@ static void exec_daemon(void)
 	char path[PATH_MAX];
 
 	//FIXME: path is wrong for makedistcheck
-	snprintf(path, PATH_MAX, "%s/check_buxtond", get_current_dir_name());
+	snprintf(path, PATH_MAX, "%s/buxtond", get_current_dir_name());
 
-	if (execl(path, "check_buxtond", (const char*)NULL) < 0) {
+	if (execl(path, "buxtond", (const char*)NULL) < 0) {
 		fail("couldn't exec: %m");
 	}
 	fail("should never reach here");
@@ -104,14 +104,16 @@ static void teardown(void)
 START_TEST (buxtond_set_group_check)
 {
 	/* do this test first to setup group for other tests */
-	buxtond_set_group("group", "layer");
-	//fail_if(strcmp(_layer, "layer"), "Failed to set layer");
-	//fail_if(strcmp(_group, "group"), "Failed to set group");
+	errno = 0;	
+	buxtond_set_group("tg_s0", "user");
+	fail_if(errno == EBADMSG, "Set group failed");
 }
 END_TEST
 
 START_TEST (buxtond_set_int32_check)
 {
+	errno = 0;	
+	buxtond_set_group("tg_s0", "user");
 	int32_t int32_val = 5;
 	errno = 0;
 	buxtond_set_int32("int32key", int32_val);
@@ -121,10 +123,12 @@ END_TEST
 
 START_TEST (buxtond_get_int32_check)
 {
+	errno = 0;	
+	buxtond_set_group("tg_s0", "user");
 	int32_t int32_val = 5;
 	errno = 0;
 	buxtond_set_int32("int32key", int32_val);
-	fail_if(errno = EACCES, "Set int32 failed");
+	fail_if(errno == EACCES, "Set int32 failed");
 	errno = 0;
 	int32_t ret = buxtond_get_int32("int32key");
 	fail_if(errno == EACCES, "Get int32 failed");
@@ -134,6 +138,8 @@ END_TEST
 
 START_TEST (buxtond_set_string_check)
 {
+	errno = 0;	
+	buxtond_set_group("tg_s0", "user");
 	char *string_val = "Testing...";
 	errno = 0;
 	buxtond_set_string("stringkey", string_val);
@@ -143,6 +149,8 @@ END_TEST
 
 START_TEST (buxtond_get_string_check)
 {
+	errno = 0;	
+	buxtond_set_group("tg_s0", "user");
 	char *string_val = "Testing...";
 	errno = 0;
 	buxtond_set_string("stringkey", string_val);
@@ -156,6 +164,8 @@ END_TEST
 
 START_TEST (buxtond_set_uint32_check)
 {
+	errno = 0;	
+	buxtond_set_group("tg_s0", "user");
 	uint32_t uint32_val = 5;
 	errno = 0;
 	buxtond_set_uint32("uint32key", uint32_val);
@@ -165,6 +175,8 @@ END_TEST
 
 START_TEST (buxtond_get_uint32_check)
 {
+	errno = 0;	
+	buxtond_set_group("tg_s0", "user");
 	uint32_t uint32_val = 5;
 	errno = 0;
 	buxtond_set_uint32("uint32key", uint32_val);
@@ -178,6 +190,8 @@ END_TEST
 
 START_TEST (buxtond_set_int64_check)
 {
+	errno = 0;	
+	buxtond_set_group("tg_s0", "user");
 	int64_t int64_val = 5;
 	errno = 0;
 	buxtond_set_int64("int64key", int64_val);
@@ -187,6 +201,8 @@ END_TEST
 
 START_TEST (buxtond_get_int64_check)
 {
+	errno = 0;	
+	buxtond_set_group("tg_s0", "user");
 	int64_t int64_val = 5;
 	errno = 0;
 	buxtond_set_int64("int64key", int64_val);
@@ -200,6 +216,8 @@ END_TEST
 
 START_TEST (buxtond_set_uint64_check)
 {
+	errno = 0;	
+	buxtond_set_group("tg_s0", "user");
 	uint64_t uint64_val = 5;
 	errno = 0;
 	buxtond_set_uint64("uint64key", uint64_val);
@@ -209,6 +227,8 @@ END_TEST
 
 START_TEST (buxtond_get_uint64_check)
 {
+	errno = 0;	
+	buxtond_set_group("tg_s0", "user");
 	uint64_t uint64_val = 5;
 	errno = 0;
 	buxtond_set_uint64("uint64key", uint64_val);
@@ -222,6 +242,8 @@ END_TEST
 
 START_TEST (buxtond_set_float_check)
 {
+	errno = 0;	
+	buxtond_set_group("tg_s0", "user");
 	float float_val = 5.5;
 	errno = 0;
 	buxtond_set_float("floatkey", float_val);
@@ -231,6 +253,8 @@ END_TEST
 
 START_TEST (buxtond_get_float_check)
 {
+	errno = 0;	
+	buxtond_set_group("tg_s0", "user");
 	float float_val = 5.5;
 	errno = 0;
 	buxtond_set_float("floatkey", float_val);
@@ -244,6 +268,8 @@ END_TEST
 
 START_TEST (buxtond_set_double_check)
 {
+	errno = 0;	
+	buxtond_set_group("tg_s0", "user");
 	double double_val = 5;
 	errno = 0;
 	buxtond_set_double("double", double_val);
@@ -253,6 +279,8 @@ END_TEST
 
 START_TEST (buxtond_get_double_check)
 {
+	errno = 0;	
+	buxtond_set_group("tg_s0", "user");
 	double double_val = 5;
 	errno = 0;
 	buxtond_set_double("doublekey", double_val);
@@ -266,6 +294,8 @@ END_TEST
 
 START_TEST (buxtond_set_bool_check)
 {
+	errno = 0;	
+	buxtond_set_group("tg_s0", "user");
 	bool bool_val = false;
 	errno = 0;
 	buxtond_set_bool("boolkey", bool_val);
@@ -275,6 +305,8 @@ END_TEST
 
 START_TEST (buxtond_get_bool_check)
 {
+	errno = 0;	
+	buxtond_set_group("tg_s0", "user");
 	bool bool_val = false;
 	errno = 0;
 	buxtond_set_bool("boolkey", bool_val);
@@ -288,7 +320,9 @@ END_TEST
 
 START_TEST (buxtond_remove_group_check)
 {
-	errno = 0;
+	errno = 0;	
+	buxtond_set_group("tg_s0", "user");
+	buxtond_remove_group("tg_s0", "user");
 	//wait to do this test until michelle puts errno in this func
 }
 END_TEST
